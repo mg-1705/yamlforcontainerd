@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata: 
+  name: nerdcont
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nerdctlcontainer
+  namespace: nerdcont
+spec:
+  containers:
+  - name: nerdctlcont
+    image: madhur17/nerdctl:1
+    command: [ "sleep" ]
+    args: [ "infinity" ]
+    volumeMounts:
+    - name: containerdsock
+      mountPath: "/var/run/containerd/containerd.sock"
+    - name: buildkitdsock
+      mountPath: "/var/run/buildkit/buildkitd.sock"
+  volumes:
+  - name: containerdsock
+    hostPath:
+      path: /var/run/containerd/containerd.sock
+  - name: buildkitdsock
+    hostPath:
+      path: /var/run/buildkit/buildkitd.sock
