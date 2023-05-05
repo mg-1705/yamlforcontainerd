@@ -14,7 +14,7 @@ pipeline{
         
         stage('run'){
             steps{
-                container('nerdctlcontainer'){
+                container('nerdctlcont'){
                     sh 'nerdctl pull busybox'
                     sh 'apt update && apt install git -y'
                     sh 'git clone https://github.com/mg-1705/Dockerizing-a-NodeJS-web-app.git'
